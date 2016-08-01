@@ -1,0 +1,20 @@
+{
+  "name": "fanbotvue",
+  "version": "1.0.0",
+  "description": "Client fanbot ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "fanbotvue"
+  },
+  "author": "Alain Couchot",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "vue": "^1.0.26",
+    "vue-resource": "^0.9.3"
+  }
+}
