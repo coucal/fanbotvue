@@ -17,7 +17,17 @@ new Vue({
   ready: function() {
     // When the application loads, we want to call the method that initializes
     // some data
-    console.log("Ready");
+    var config = {
+      apiKey: "AIzaSyAYVtNf1LZjvCRHVGsktSXJi1zTm0a4xHs",
+      authDomain: "fir-link-aa249.firebaseapp.com",
+      databaseURL: "https://fir-link-aa249.firebaseio.com",
+      storageBucket: "fir-link-aa249.appspot.com",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(config)
+    this.database = firebase.database()
+    this.tweetsRef=this.database.ref('tweets');
+
     this.fetchtweets();
   },
 
@@ -26,30 +36,21 @@ new Vue({
 
     // We dedicate a method to retrieving and setting some data
     fetchtweets: function() {
-      var tweets = [
-        {
-          id: 1,
-          user_name: '@mulhouse',
-          text: 'Toronto International Film Festival',
-          date: '2015-09-10'
-        },
-        {
-          id: 2,
-          user_name: '@coucal',
-          text: 'The Martian comes to theatres.',
-          date: '2015-10-02'
-        },
-        {
-          id: 3,
-          user_name: '@JRotttner',
-          text: 'Music, film and interactive festival in Austin, TX.',
-          date: '2016-03-11'
+      this.tweetsRef.on("value", function(snapshot) {
+        var tweets=Array();
+        for( key in snapshot.val()) {
+          snap=snapshot.val()[key];
+          var aTweet= {
+            id: snap.id,
+            text:snap.text,
+            date:snap.created_at,
+            user_name:snap.user.screen_name
+          };
+          //console.log(aTweet);
+          tweets.push(aTweet);
         }
-      ];
-      console.log(tweets);
-      // $set is a convenience method provided by Vue that is similar to pushing
-      // data onto an array
-      this.$set('tweets', tweets);
+        this.$set('tweets', tweets.reverse());
+      }, this);
     },
 
     // Adds an tweet to the existing tweets array

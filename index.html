@@ -28,7 +28,7 @@
 
         <a href="#" class="list-group-item" v-for="tweet in tweets">
           <h4 class="list-group-item-heading">
-            {{ tweet.user_name }}
+            @{{ tweet.user_name }}
           </h4>
 
           <h5>
@@ -47,6 +47,7 @@
   <!-- JS -->
   <script src="node_modules/vue/dist/vue.js"></script>
   <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
+  <script src="node_modules/firebase/firebase.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
